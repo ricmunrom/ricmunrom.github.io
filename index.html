@@ -1,1 +1,209 @@
-#
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ricardo Muñoz Romero</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f5f1eb;
+      --surface: #ede9e2;
+      --border: #d8d2c8;
+      --text: #1e1c18;
+      --muted: #8a847a;
+      --accent: #7a5c3a;
+      --accent2: #3a6e50;
+      --mono: 'DM Mono', monospace;
+      --serif: 'DM Serif Display', serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--mono); font-size: 14px; line-height: 1.7; min-height: 100vh; }
+    body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 100; opacity: 0.5; }
+    .container { max-width: 780px; margin: 0 auto; padding: 80px 32px 120px; }
+    header { margin-bottom: 72px; opacity: 0; animation: fadeUp 0.8s ease forwards; }
+    .name { font-family: var(--serif); font-size: clamp(2.4rem, 6vw, 3.8rem); line-height: 1.1; color: var(--text); margin-bottom: 6px; letter-spacing: -0.5px; }
+    .tagline { color: var(--muted); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 28px; }
+    .contact { display: flex; flex-wrap: wrap; gap: 20px; font-size: 12.5px; }
+    .contact a { color: var(--muted); text-decoration: none; border-bottom: 1px solid transparent; transition: color 0.2s, border-color 0.2s; }
+    .contact a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+    .contact span { color: var(--border); }
+    section { margin-bottom: 60px; opacity: 0; animation: fadeUp 0.8s ease forwards; }
+    section:nth-child(1) { animation-delay: 0.1s; }
+    section:nth-child(2) { animation-delay: 0.2s; }
+    section:nth-child(3) { animation-delay: 0.3s; }
+    section:nth-child(4) { animation-delay: 0.4s; }
+    section:nth-child(5) { animation-delay: 0.5s; }
+    section:nth-child(6) { animation-delay: 0.6s; }
+    section:nth-child(7) { animation-delay: 0.7s; }
+    section:nth-child(8) { animation-delay: 0.8s; }
+    .section-label { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent2); margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+    .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    .about-text { font-size: 15px; color: #3a3730; line-height: 1.8; max-width: 600px; }
+    .about-text strong { color: var(--accent); font-weight: 500; }
+    .stack-grid { display: grid; gap: 10px; }
+    .stack-row { display: grid; grid-template-columns: 160px 1fr; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--border); align-items: baseline; }
+    .stack-key { color: var(--muted); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
+    .stack-val { color: var(--text); font-size: 13px; }
+    .job { padding: 24px 0; border-bottom: 1px solid var(--border); }
+    .job:last-child { border-bottom: none; }
+    .job-header { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px; margin-bottom: 4px; }
+    .job-company { font-family: var(--serif); font-size: 18px; color: var(--text); }
+    .job-dates { font-size: 11px; color: var(--muted); letter-spacing: 0.06em; }
+    .job-title { color: var(--accent); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 14px; }
+    .job-bullets { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .job-bullets li { color: #5a5550; font-size: 13px; padding-left: 18px; position: relative; line-height: 1.65; }
+    .job-bullets li::before { content: '—'; position: absolute; left: 0; color: var(--border); }
+    .projects-grid { display: grid; gap: 16px; }
+    .project-card { padding: 20px 22px; border: 1px solid var(--border); border-radius: 4px; background: var(--surface); transition: border-color 0.2s, transform 0.2s; }
+    .project-card:hover { border-color: var(--accent); transform: translateX(4px); }
+    .project-name { font-family: var(--serif); font-size: 16px; color: var(--text); margin-bottom: 6px; }
+    .project-desc { color: var(--muted); font-size: 12.5px; line-height: 1.65; }
+    .project-tag { display: inline-block; margin-top: 10px; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent2); border: 1px solid var(--accent2); padding: 2px 8px; border-radius: 2px; }
+    .edu-block { padding: 20px 0; border-bottom: 1px solid var(--border); }
+    .edu-block:last-child { border-bottom: none; }
+    .edu-school { font-family: var(--serif); font-size: 17px; color: var(--text); margin-bottom: 4px; }
+    .edu-degree { color: var(--accent); font-size: 12px; letter-spacing: 0.06em; margin-bottom: 6px; }
+    .edu-detail { color: var(--muted); font-size: 12.5px; }
+    .edu-thesis { margin-top: 10px; padding: 10px 14px; border-left: 2px solid var(--accent); background: rgba(200, 184, 154, 0.04); font-size: 12.5px; color: #6a6460; font-style: italic; }
+    .misc-row { display: flex; gap: 12px; flex-wrap: wrap; }
+    .pill { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--border); padding: 4px 12px; border-radius: 999px; }
+    .beyond-note { margin-top: 14px; font-size: 12.5px; color: var(--muted); max-width: 520px; line-height: 1.7; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    @media (max-width: 560px) { .stack-row { grid-template-columns: 1fr; gap: 4px; } .job-header { flex-direction: column; } .container { padding: 48px 20px 80px; } }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <header>
+      <h1 class="name">Ricardo Muñoz Romero</h1>
+      <p class="tagline">Data Scientist &amp; Developer · Mexico City</p>
+      <div class="contact">
+        <a href="mailto:ricardo.munoz.romero@hotmail.com">ricardo.munoz.romero@hotmail.com</a>
+        <span>/</span>
+        <a href="https://github.com/ricmunrom" target="_blank">github.com/ricmunrom</a>
+        <span>/</span>
+        <a href="tel:+525519118275">+52 55 1911 8275</a>
+      </div>
+    </header>
+
+    <section>
+      <p class="section-label">About</p>
+      <p class="about-text">
+        Economist with a strong focus on applied data science. I build <strong>end-to-end solutions</strong>—from extraction to action—leveraging SQL, Python and thoughtful systems comprehension. I connect data, intelligence, and purpose to solve complex problems with clarity, rigor, and precision.
+      </p>
+    </section>
+
+    <section>
+      <p class="section-label">Tech Stack</p>
+      <div class="stack-grid">
+        <div class="stack-row"><span class="stack-key">Languages</span><span class="stack-val">Python, SQL</span></div>
+        <div class="stack-row"><span class="stack-key">Cloud</span><span class="stack-val">AWS (EC2, S3, Textract), DigitalOcean</span></div>
+        <div class="stack-row"><span class="stack-key">Frameworks</span><span class="stack-val">Pandas, scikit-learn, Streamlit, Matplotlib, Flask, LangChain, SentenceTransformer, Airflow, Django</span></div>
+        <div class="stack-row"><span class="stack-key">Dev</span><span class="stack-val">Git, Docker, Linux</span></div>
+        <div class="stack-row"><span class="stack-key">Databases</span><span class="stack-val">PostgreSQL, Snowflake, DynamoDB, SQLAlchemy, SQLite</span></div>
+        <div class="stack-row"><span class="stack-key">APIs</span><span class="stack-val">Facebook Developers / Business</span></div>
+      </div>
+    </section>
+
+    <section>
+      <p class="section-label">Experience</p>
+
+      <div class="job">
+        <div class="job-header">
+          <span class="job-company">Reece Group</span>
+          <span class="job-dates">Oct 2025 – Present</span>
+        </div>
+        <p class="job-title">Data &amp; Transformation Analyst</p>
+        <ul class="job-bullets">
+          <li>Designed and implemented an automated product-matching pipeline mapping Reece's catalog against competitor catalogs via dual parallel pipelines, achieving 2× the matches previously obtained manually.</li>
+          <li>Engineered a self-learning library system that automatically discovers and standardizes manufacturer name variants, reducing manual curation and improving consistency across pipeline runs.</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="job-header">
+          <span class="job-company">Latailabs</span>
+          <span class="job-dates">Mar 2025 – Sep 2025</span>
+        </div>
+        <p class="job-title">Data Scientist + Developer</p>
+        <ul class="job-bullets">
+          <li>Developed an automated curation pipeline for Google Merchant Center feed, orchestrating attribute correction with Airflow and persistent synchronization via intermediate tables.</li>
+          <li>Implemented a purchase intent classification system combining semantic analysis and performance metrics (ROAS, CTR) through Django models and Airflow.</li>
+          <li>Built a Streamlit interface for advertising creative generation with async OpenAI API processing.</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="job-header">
+          <span class="job-company">Self-Employed</span>
+          <span class="job-dates">Apr 2024 – Jan 2025</span>
+        </div>
+        <p class="job-title">Developer</p>
+        <ul class="job-bullets">
+          <li>Designed an AI agent using Databricks Model Serving + LangChain for natural language query routing to client API endpoints.</li>
+          <li>Built a survey chatbot with PostgreSQL integration and a secure Flask/AWS platform with three-level user authorization.</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="job-header">
+          <span class="job-company">Entropia.ai</span>
+          <span class="job-dates">Feb 2023 – Apr 2024</span>
+        </div>
+        <p class="job-title">Data Scientist</p>
+        <ul class="job-bullets">
+          <li>Deployed a conversational chatbot inside a Dash analytics dashboard on AWS for natural language business data queries.</li>
+          <li>Built a full sales forecasting pipeline with Prophet + PySpark + Airflow on Oracle data, achieving 15% MAPE on 30-day forecasts.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <p class="section-label">Projects</p>
+      <div class="projects-grid">
+        <div class="project-card">
+          <p class="project-name">superarte.mx</p>
+          <p class="project-desc">An experimental space for digital art — built on the belief that art belongs to those who honor their practice with intention.</p>
+          <span class="project-tag">Art · Web</span>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <p class="section-label">Education</p>
+      <div class="edu-block">
+        <p class="edu-school">Instituto Tecnológico Autónomo de México</p>
+        <p class="edu-degree">Bachelor's Degree in Economics — With Honors · 2015–2020</p>
+        <p class="edu-detail">GPA 3.64 / 4.0 &nbsp;·&nbsp; Score 9.1 / 10</p>
+        <div class="edu-thesis">
+          Undergraduate thesis: <em>Alcohol, Tabaco y Marihuana: ¿Complementos o Sustitutos en el Consumo?</em> — an empirical econometric study on cross-price elasticities of substance consumption in Mexico.
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <p class="section-label">Languages</p>
+      <div class="misc-row">
+        <span class="pill">Spanish — Native</span>
+        <span class="pill">English — Advanced</span>
+        <span class="pill">French — Basic</span>
+      </div>
+    </section>
+
+    <section>
+      <p class="section-label">Beyond Work</p>
+      <div class="misc-row">
+        <span class="pill">Skateboarding</span>
+        <span class="pill">Cycling</span>
+        <span class="pill">Football</span>
+        <span class="pill">Carpentry &amp; DIY</span>
+        <span class="pill">Art</span>
+      </div>
+    </section>
+
+  </div>
+</body>
+</html>
